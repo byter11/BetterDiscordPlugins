@@ -24,26 +24,6 @@ const Devices = {
   Active: BdApi.loadData('SoundBoard', "Devices") || {Input: ({id: 'default' , name: 'Default'}), Output: ({id: 'default', name: 'Default'})}
 };
 
-const Component = {
-  Flex: BdApi.findModuleByDisplayName("Flex"),
-  Text: BdApi.findModuleByDisplayName("Text"),
-  VerticalScroller: BdApi.findModuleByDisplayName("VerticalScroller"),
-  Button: BdApi.findModuleByProps("Link", "Hovers"),
-  Form: BdApi.findModuleByProps("FormSection", "FormText"),
-  SwitchItem: BdApi.findModuleByDisplayName("SwitchItem"),
-  TextInput: BdApi.findModuleByDisplayName("TextInput"),
-  SelectTempWrapper: BdApi.findModuleByDisplayName("SelectTempWrapper"),
-  Slider: BdApi.findModuleByDisplayName("Slider"),
-  Menu: BdApi.findModuleByProps("MenuGroup", "MenuItem", "MenuSeparator"),
-  VoiceContextMenu: BdApi.findModule(
-    (m) =>
-      m.default &&
-      m.default.displayName === "ChannelListVoiceChannelContextMenu"
-  ),
-  Tooltip: BdApi.findModuleByDisplayName("Tooltip"),
-  PanelButton: BdApi.findModuleByDisplayName("PanelButton"),
-};
-
 const Style = {
   Header: BdApi.findModuleByProps("defaultColor", "h1", "h5"),
   Size: BdApi.findModuleByProps("size10", "size12"),
