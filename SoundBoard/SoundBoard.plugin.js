@@ -96,7 +96,6 @@ module.exports = class SoundBoard {
       this.popout.style.top = Math.round(offset.top - offsetHeight - 20) + "px";
       this.popout.style.left =
         Math.round(offset.left - offsetWidth / 2 + 20) + "px";
-      console.log(this.popout.offsetWidth);
       const listener = (e) => {
         if (!e.target.closest('.popout-open')) {
           popouts.removeChild(this.popout);
@@ -215,14 +214,11 @@ module.exports = class SoundBoard {
 		`.trim();
 
     el = el.content.firstElementChild;
-    console.log(el.childNodes)
 
-    
 
     const selects = el.getElementsByTagName('select')
     const inputs = el.querySelectorAll('#soundboard-clips-input > div > input');
-    console.log(inputs[0].parentElement.parentElement)
-      console.log(this.clips);
+
     this.clips.forEach((c) => {
       el.appendChild(this.createClipElement(c));
     });
