@@ -13,7 +13,7 @@
 	
 	![recording.png](./Screenshots/recording.png)
 * Set your main output device in Discord Voice/Video Settings
-* 
+
 ![output.png](./Screenshots/output.png)
 
 Now all notifications, and other sounds (including the soundboard) will go through VAC to your speakers, but voice channel sounds will go directly to the device you set in Discord User settings
