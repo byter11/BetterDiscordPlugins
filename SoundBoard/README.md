@@ -1,7 +1,7 @@
 # How to use
 ## Setting up VAC
 * Install Virtual Audio Cable (VAC)
-* Go to Windows Sound mixer and output device for Discord to CABLE INPUT
+* Go to Windows Sound mixer and set output device for Discord to CABLE INPUT
 
 ![soundmixer.png](./Screenshots/soundmixer.png)
 * Go to Control Panel Sound options
@@ -20,7 +20,7 @@ Now all notifications, and other sounds (including the soundboard) will go throu
 
 ## Install The Plugin
 * Copy the soundboard.plugin.js file to the plugins folder
-* Go into plugins settings, set input device to CABLE Output
+* Go into the plugin's settings, set input device to CABLE Output
 
 Sound clips can only be added in form of discord links.
 
