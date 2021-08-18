@@ -4,7 +4,7 @@
  * @description Adds a soundboard button when connected to a voice channel
  * @version 0.0.1
  */
- const { React, ReactDOM } = BdApi;
+ const { React } = BdApi;
  const Module = {
    Events: BdApi.findModuleByProps("dispatch", "subscribe", "unsubscribe"),
    SelectedChannel: BdApi.findModuleByProps("getChannelId", "getVoiceChannelId"),
@@ -42,6 +42,7 @@
    _cancelPatch = null;
    popout = null;
    clips = BdApi.loadData(this.getName(), 'Clips') || [];
+   popouts = document.querySelector("#app-mount");
    getName() {
      return "SoundBoard";
    }
@@ -67,7 +68,7 @@
                React.createElement(
                  "button",
                  {
-                   className: `${Style.ButtonProperties.button} ${Style.ButtonProperties.enabled} ${button} ${lookBlank} ${colorBrand} ${grow}`,
+                   className: `soundboard-button ${Style.ButtonProperties.button} ${Style.ButtonProperties.enabled} ${button} ${lookBlank} ${colorBrand} ${grow}`,
                    onClick: (e) => {
                      this.handleClick(e);
                    },
@@ -83,30 +84,32 @@
    }
  
    handleClick = (e) => {
-     const popouts = document.querySelector("." + Style.Popout.popouts);
      const offset = e.target.getBoundingClientRect();
  
      // const maxWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
      // const maxHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
  
      if (!this.popout.classList.contains("popout-open")) {
-       popouts.append(this.popout);
        this.popout.classList.add("popout-open");
+       this.popouts.appendChild(this.popout);
        const { offsetWidth, offsetHeight } = this.popout.firstElementChild;
        this.popout.style.top = Math.round(offset.top - offsetHeight - 20) + "px";
+       
        this.popout.style.left =
          Math.round(offset.left - offsetWidth / 2 + 20) + "px";
+
        const listener = (e) => {
          if (!e.target.closest('.popout-open')) {
-           popouts.removeChild(this.popout);
+           this.popouts.removeChild(this.popout);
            this.popout.classList.remove("popout-open");
            document.removeEventListener("click", listener);
          }
        };
-       document.addEventListener("click", listener);
+       setTimeout(()=>document.addEventListener("click", listener), 10)
+        
      }
    };
- 
+
    stop() {
      this._cancelPatch();
    }
@@ -147,10 +150,10 @@
          <div style="background-color: #2f3136;color: #fff;padding: 13px;font-weight: 500;display: flex;justify-content: center;-webkit-box-align: center;-ms-flex-align: center;align-items: center;position: relative;border-radius: 3px 3px 0 0;">
            SoundBoard
          </div>
-         <div id="soundboard-items" class=" ${flex} ${horizontal} ${justifyCenter}  ${alignStretch} ${wrap} ">
+         <div id="soundboard-items" class=" ${flex} ${horizontal} ${justifyCenter}  ${alignStretch} ${wrap}" style="max-height: 203px; overflow-y: scroll;scrollbar-width: thin;">
            ${this.clips.map((c) => 
              `<button href="${c.link}" class="${colorGrey} ${hasHover} ${hoverBrand} ${grow} ${lookFilled} ${sizeMedium}" style="color: white; flex: 0 1 47%; align-self: auto; min-height: 100px;margin: 1% 1%">${c.name}</button>`
-           ).join()}
+           ).join('')}
          </div>
        </div>
      </div>
