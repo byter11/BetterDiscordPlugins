@@ -27,15 +27,16 @@
  const Style = {
    Header: BdApi.findModuleByProps("defaultColor", "h1", "h5"),
    Size: BdApi.findModuleByProps("size10", "size12"),
-   Button: BdApi.findModuleByProps("button"),
+   Button: BdApi.findModuleByProps("button", "lookBlank", "colorBrand"),
    CloseButton: BdApi.findModuleByProps('button', 'filled'),
    ButtonProperties: BdApi.findModuleByProps("button", "enabled", "disabled"),
    Input: BdApi.findModuleByProps("input", "inputDefault"),
-   Flex: BdApi.findModuleByProps("flex", "horizontal"),
+   Flex: BdApi.findModuleByProps("flex", "horizontal", "wrap"),
    FlexPanel: BdApi.findModuleByProps("flex", "flexChild"),
    Popout: BdApi.findModuleByProps("popouts", "popoutLeft"),
    Layer: BdApi.findModuleByProps("LayerClassName"),
    Animator: BdApi.findModuleByProps("animatorTop", "translate"),
+   VoicePanel: BdApi.findModuleByProps("button", "buttonColor", "noiseCancellationPopout")
  };
  
  module.exports = class SoundBoard {
@@ -68,7 +69,7 @@
                React.createElement(
                  "button",
                  {
-                   className: `soundboard-button ${Style.ButtonProperties.button} ${Style.ButtonProperties.enabled} ${button} ${lookBlank} ${colorBrand} ${grow}`,
+                   className: `soundboard-button ${button} ${Style.ButtonProperties.button} ${Style.ButtonProperties.enabled} ${lookBlank} ${colorBrand}  ${grow}`,
                    onClick: (e) => {
                      this.handleClick(e);
                    },
@@ -140,8 +141,8 @@
      const { justifyCenter, alignStart, alignStretch, wrap } = Style.Flex;
      const { animatorTop, translate, didRender } = Style.Animator;
      const { LayerClassName } = Style.Layer;
-     const {button, colorBrand, colorGrey, hasHover, hoverBrand, grow, lookFilled, sizeMedium} = Style.Button
-     
+     const {colorBrand, hasHover, hoverBrand, grow, lookFilled, sizeMedium} = Style.Button
+     const {button, buttonColor} = Style.VoicePanel
  
      var el = document.createElement("template");
      el.innerHTML = `
@@ -152,7 +153,7 @@
          </div>
          <div id="soundboard-items" class=" ${flex} ${horizontal} ${justifyCenter}  ${alignStretch} ${wrap}" style="max-height: 203px; overflow-y: scroll;scrollbar-width: thin;">
            ${this.clips.map((c) => 
-             `<button href="${c.link}" class="${colorGrey} ${hasHover} ${hoverBrand} ${grow} ${lookFilled} ${sizeMedium}" style="color: white; flex: 0 1 47%; align-self: auto; min-height: 100px;margin: 1% 1%">${c.name}</button>`
+             `<button class="${button} ${sizeMedium} ${buttonColor} ${lookFilled} ${grow}" href="${c.link}">${c.name}</button>`
            ).join('')}
          </div>
        </div>
@@ -178,7 +179,7 @@
      const outputOptions = Devices.Output.map(
        (d) => `<option id="${d.id}" style="background-color: #2f3136;" value="${d.name}" ${Devices.Active.Output.name === d.name ? "selected" : ''}>${d.name}</option>`
      ).join();
- 
+
      var el = document.createElement('template')
      el.innerHTML = /*html*/`
      <div id="soundboard-settings">
